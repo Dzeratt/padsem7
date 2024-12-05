@@ -9,6 +9,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+        postgres:
+          image: postgres:13
+          ports:
+            - 5432:5432
+          env:
+            POSTGRES_DB: padsem7rgz
+            POSTGRES_USER: web_rgz
+            POSTGRES_PASSWORD: 123
+          options: >-
+            --health-cmd="pg_isready -U web_rgz" 
+            --health-interval=10s 
+            --health-timeout=5s 
+            --health-retries=5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,8 +38,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV    
+      - name: Set up environment variables
+        run: |
+          echo "DATABASE_URL=postgresql://web_rgz:123@localhost:5432/padsem7rgz" >> $GITHUB_ENV
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          sleep 20  # Даем время для запуска контейнера с PostgreSQL  
 
       - name: Run unit tests
         run: |
