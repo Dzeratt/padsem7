@@ -70,7 +70,7 @@ def test_create_article(client):
     article = cur.fetchone()
     conn.close()
     assert article is not None
-    assert article[1] == 'Test Article'
+    assert article[1] == 'Тестовая статья'
 
 
 def test_access_control(client):
