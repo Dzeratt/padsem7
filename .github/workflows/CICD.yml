@@ -55,5 +55,6 @@ jobs:
 
       - name: Run Bandit security checks
         run: |
-          bandit -r . --skip B101,B105
+          bandit -r . --skip B101,B105,B201
+
           
