@@ -66,7 +66,7 @@ def test_create_article(client):
 
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM articles WHERE title = %s", ('Test Article',))
+    cur.execute("SELECT * FROM articles WHERE title = %s", ('Тестовая статья',))
     article = cur.fetchone()
     conn.close()
     assert article is not None
