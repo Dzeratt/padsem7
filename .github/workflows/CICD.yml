@@ -38,6 +38,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
       - name: Set up environment variables
         run: |
           echo "DATABASE_URL=postgresql://web_rgz:123@localhost:5432/padsem7rgz" >> $GITHUB_ENV
